@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinner">
+        <item>@string/coruna</item>
+        <item>@string/lugo</item>
+        <item>@string/pontevedra</item>
+        <item>@string/ourense</item>
+        <item>@string/leon</item>
+    </string-array>
+</resources>

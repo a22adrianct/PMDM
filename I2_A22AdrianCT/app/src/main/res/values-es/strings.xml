@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">I2_A22AdrianCT</string>
+    <string name="text_hint">Escribe algún texto y presiona el botón.</string>
+    <string name="checkbox_text">Limpiar</string>
+    <string name="button_text">Añadir / Limpiar</string>
+    <string name="rbutton_red">Rojo</string>
+    <string name="rbutton_blue">Azul</string>
+    <string name="tv_default_content">Aquí es donde verás el texto que has escrito</string>
+    <string name="image_tag">Muelle de Porto do son</string>
+    <string name="galician_province">Has seleccionado una provincia gallega</string>
+    <string name="not_galician_province">No has seleccionado una provincia gallega</string>
+    <string name="coruna">La Coruña</string>
+    <string name="lugo">Lugo</string>
+    <string name="pontevedra">Pontevedra</string>
+    <string name="ourense">Ourense</string>
+    <string name="leon">León</string>
+</resources>

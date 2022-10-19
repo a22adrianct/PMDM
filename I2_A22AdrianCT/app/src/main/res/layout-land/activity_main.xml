@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:outlineAmbientShadowColor="#000000"
+    android:outlineSpotShadowColor="#000000"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/default_margin"
+    tools:ignore="UseSwitchCompatOrMaterialXml">
+
+    <EditText
+        android:id="@+id/text_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="@string/text_hint"
+        android:inputType="textCapWords|textMultiLine"
+        android:background="@color/green"
+        android:imeOptions="actionSend"/>
+
+    <CheckBox
+        android:id="@+id/clear"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkbox_text"/>
+
+    <Button
+        android:id="@+id/send_clear_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_gravity="center"
+        android:text="@string/button_text"
+        android:onClick="sendText"/>
+
+    <TextView
+        android:id="@+id/content_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_default_content"
+        android:textColor="@color/red"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/red_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/rbutton_red"
+            android:layout_weight="1"
+            android:onClick="changeColor"/>
+
+        <RadioButton
+            android:id="@+id/blue_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="@string/rbutton_blue"
+            android:onClick="changeColor"/>
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line"
+        android:layout_marginTop="@dimen/margin_top"
+        android:background="@color/black"/>
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:entries="@array/spinner"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/landscape_margin_top">
+
+            <Chronometer
+                android:id="@+id/chronometer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/chronometer"/>
+
+            <Switch
+                android:id="@+id/switch_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">OlaMundo</string>
+    <string name="action_settings">Axustes</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Primeira vista</string>
+    <string name="second_fragment_label">Segunda vista</string>
+    <string name="next">Seguinte</string>
+    <string name="previous">Anterior</string>
+
+    <string name="hello_first_fragment">Ola Mundo!</string>
+    <string name="hello_second_fragment">Ola Mundo!. Arg: %1$s</string>
+</resources>

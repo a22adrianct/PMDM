@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">I2_A22AdrianCT</string>
+    <string name="text_hint">Type some text and press the button.</string>
+    <string name="checkbox_text">Clear</string>
+    <string name="button_text">Add / Clear</string>
+    <string name="rbutton_red">Red</string>
+    <string name="rbutton_blue">Blue</string>
+    <string name="tv_default_content">Here is where you will see the text that you type</string>
+    <string name="image_tag">Harbour of Porto do son</string>
+    <string name="galician_province">You have selected a Galician province</string>
+    <string name="not_galician_province">You have not selected a Galician province</string>
+    <string name="coruna">A Coruna</string>
+    <string name="lugo">Lugo</string>
+    <string name="pontevedra">Pontevedra</string>
+    <string name="ourense">Ourense</string>
+    <string name="leon">Leon</string>
+</resources>
