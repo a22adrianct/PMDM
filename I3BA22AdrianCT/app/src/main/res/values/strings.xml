@@ -2,4 +2,7 @@
     <string name="app_name">I3B-A22AdrianCT</string>
     <string name="btn1">DATOS / TELÉFONO / BUSCADOR</string>
     <string name="btn2">DATOS</string>
+    <string name="btn_pechar">PECHAR</string>
+    <string name="cadea_hint">Introduce o texto que desexas buscar</string>
+    <string name="telefono_hint">Ex: 600 111 222</string>
 </resources>
