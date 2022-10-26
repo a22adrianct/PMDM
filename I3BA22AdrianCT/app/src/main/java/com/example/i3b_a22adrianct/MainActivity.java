@@ -26,11 +26,7 @@ public class MainActivity extends FragmentActivity {
 
     public void onBtnClick(View view){
         Intent intent = new Intent(this, IntroducirDatos.class);
-        activityLauncher.launch(intent, result -> {
-            if (result.getResultCode() == Activity.RESULT_OK) {
-                Intent data = result.getData();
-            }
-        });
+        startActivity(intent);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
