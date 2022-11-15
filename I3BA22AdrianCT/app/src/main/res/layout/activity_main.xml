@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="@string/btn1"
-        android:layout_gravity="top|center"
-        android:onClick="onBtnClick"/>
+        android:layout_gravity="top|center"/>
 
     <Button
         android:id="@+id/dataButton"
@@ -22,5 +21,4 @@
         android:layout_width="wrap_content"
         android:text="@string/btn2"
         android:layout_gravity="top|center"/>
-
 </LinearLayout>
