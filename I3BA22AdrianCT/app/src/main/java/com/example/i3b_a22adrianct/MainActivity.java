@@ -52,28 +52,24 @@ public class MainActivity extends FragmentActivity {
                 builder.setTitle("Escolle unha opción");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Chamar", (DialogInterface.OnClickListener) (dialog, wich) -> {
-                    if (!bundle.getString("TELEFONO").isEmpty()) {
-                        Intent call = new Intent(Intent.ACTION_CALL);
-                        call.setData(Uri.parse(bundle.getString("TELEFONO")));
-                        if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                            MainActivity.this.requestPermissions(new String[]
-                                            {Manifest.permission.CALL_PHONE},
-                                    1);
-                        }
-                        startActivity(call);
+                    if (bundle != null) {
+                        numTelf = bundle.getString("TELEFONO");
+                        Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                        callIntent.setData(Uri.parse("tel:"+numTelf));
+                        startActivity(callIntent);
                     }
-                    else {
+                    else if (bundle == null || bundle.getString("TELEFONO").isEmpty()){
                         Toast.makeText(getApplicationContext(), "O campo teléfono está baleiro", Toast.LENGTH_SHORT).show();
                     }
                 });
 
                 builder.setNegativeButton("Buscar", (DialogInterface.OnClickListener) (dialog, wich) -> {
                     Intent search = new Intent(Intent.ACTION_WEB_SEARCH);
-                    if (bundle.getString("TEXTO").isEmpty()){
-                        search.putExtra(SearchManager.QUERY, texto);
-                    } else {
-                        search.putExtra(SearchManager.QUERY, bundle.getString("TEXTO"));
+                    texto = "casa";
+                    if (bundle != null){
+                        texto = bundle.getString("TEXTO");
                     }
+                    search.putExtra(SearchManager.QUERY, texto);
                     startActivity(search);
                 });
                 AlertDialog alertDialog = builder.create();
@@ -84,16 +80,14 @@ public class MainActivity extends FragmentActivity {
         dataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                texto = "casa";
+                numTelf = "";
 
-                if (!bundle.getString("TEXTO").isEmpty()){
+                if (bundle != null){
                     texto = bundle.getString("TEXTO");
-                } else {
-                    texto = "casa";
                 }
-                if (!bundle.getString("TELEFONO").isEmpty()){
+                if (bundle != null){
                     numTelf = bundle.getString("TELEFONO");
-                } else {
-                    numTelf = "";
                 }
                 Toast.makeText(getApplicationContext(), texto + "\n" + numTelf, Toast.LENGTH_SHORT).show();
             }
