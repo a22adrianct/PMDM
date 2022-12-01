@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">I3C-A22AdrianCT</string>
+    <string name="text_view_dialogo_con_mensaxe">Nova mensaxe. Preme o botón \'Back\' para volver á pantalla principal</string>
+    <string name="titulo_dialogo_lista_seleccion">Escolle unha opción</string>
+    <string name="titulo_dialogo_tres_botons">Enquisa</string>
+    <string name="mensaje_dialogo_tres_botons">Compras sempre en grandes superficies?</string>
+    <string name="pulsarSi_dialogo_3Botons">Premeches Si</string>
+    <string name="pulsarNon_dialogo_3Botons">Premeches Non</string>
+    <string name="pulsarAsVeces_dialogo_3Botons">Premeches As veces</string>
+    <string name="premer_aceptar">Premeches Aceptar</string>
+    <string name="premer_cancelar">Premeches Cancelar</string>
+    <string name="dialogoUnhaSeleccion_titulo">Selecciona un smartpohone</string>
+</resources>

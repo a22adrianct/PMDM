@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="espaciado_layout">10dp</dimen>
+    <dimen name="tamaño_textos">25sp</dimen>
+    <dimen name="ancho_view">1dp</dimen>
+</resources>

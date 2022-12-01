@@ -86,6 +86,7 @@ public class MainActivity extends FragmentActivity {
                 if (bundle != null){
                     texto = bundle.getString("TEXTO");
                 }
+
                 if (bundle != null){
                     numTelf = bundle.getString("TELEFONO");
                 }

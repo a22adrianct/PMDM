@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="action_settings">Settings</string>
+
+
+    <string-array name="elementos_dialog_seleccion">
+        <item>Opción un</item>
+        <item>Opción dous</item>
+        <item>Opción tres</item>
+        <item>Opción catro</item>
+    </string-array>
+
+    <string-array name="elementos_dialog_seleccion2">
+        <item>Coche</item>
+        <item>Moto</item>
+        <item>Bici</item>
+        <item>Metro</item>
+        <item>Tren</item>
+        <item>Autobús</item>
+        <item>Andando</item>
+    </string-array>
+
+</resources>
