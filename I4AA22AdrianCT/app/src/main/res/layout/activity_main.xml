@@ -18,7 +18,7 @@
         android:gravity="top|center">
 
         <EditText
-            android:id="@+id/texto"
+            android:id="@+id/textoEscribir"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Escribe algo"/>
@@ -43,9 +43,32 @@
         </RadioGroup>
 
         <Button
-            android:id="@+id/boton"
+            android:id="@+id/btnEscribir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Engadir / Sobreescribir"/>
+            android:text="Engadir / Sobreescribir"
+            android:onClick="onEscribirClick"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnListView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ListView"
+                android:onClick="onListViewClick"
+                android:layout_margin="5dp"/>
+
+            <Button
+                android:id="@+id/btnSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Spinner"
+                android:onClick="onSpinnerClick"
+                android:layout_margin="5dp"/>
+        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
