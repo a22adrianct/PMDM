@@ -36,7 +36,30 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setUp();
+
+        textView = findViewById(R.id.tv);
+        editText = findViewById(R.id.et);
+        btnEngadirElemento = findViewById(R.id.btnEngadir);
+        btnDialog = findViewById(R.id.btnShowDialog);
+        btnFragmentDialog = findViewById(R.id.btnDialogFragment);
+
+        ficheiro = new File(getExternalFilesDir(null).getAbsolutePath() , "/animals.txt");
+        ficheiroEscollido = new File(getExternalFilesDir(null).getAbsolutePath() , "/selected.txt");
+
+        actualizarElementos();
+
+        if(ficheiro.length() == 0){
+            for(String elemento : elementos){
+                escribirFicheiro(ficheiro, elemento);
+            }
+        }
+
+        if(ficheiroEscollido.length() != 0 && ficheiroEscollido.exists() ){
+            elementosEscollidos = cargarRecursos(ficheiroEscollido);
+            cancelarEscollidos = (ArrayList<Boolean>) elementosEscollidos.clone();
+        }
+
+        if(!elementosEscollidos.isEmpty()) actualizarTextView();
 
         btnEngadirElemento.setOnClickListener(view -> {
             String txtToast = "Elemento engadido correctamente";
@@ -63,36 +86,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setUp() {
-        textView = findViewById(R.id.tv);
-        editText = findViewById(R.id.et);
-        btnEngadirElemento = findViewById(R.id.btnEngadir);
-        btnDialog = findViewById(R.id.btnShowDialog);
-        btnFragmentDialog = findViewById(R.id.btnDialogFragment);
-
-        ficheiro = new File(getExternalFilesDir(null).getAbsolutePath() , "/animals.txt");
-        ficheiroEscollido = new File(getExternalFilesDir(null).getAbsolutePath() , "/selected.txt");
-
-        actualizarElementos();
-
-        if(ficheiro.length() == 0){
-             for(String elemento : elementos){
-                escribirFicheiro(ficheiro, elemento);
-            }
-        }
-
-        if(ficheiroEscollido.length() != 0 && ficheiroEscollido.exists() ){
-            elementosEscollidos = cargarRecursos(ficheiroEscollido);
-            cancelarEscollidos = (ArrayList<Boolean>) elementosEscollidos.clone();
-        }
-
-        if(!elementosEscollidos.isEmpty()) actualizarTextView();
-
-    }
-
     public Dialog createDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        boolean[] selected = formatSelected();
+        boolean[] selected = new boolean[elementosEscollidos.size()];
+        for(int i = 0 ; i < selected.length ; i++){
+            selected[i] = elementosEscollidos.get(i);
+        }
 
         builder.setTitle("Elementos")
                 .setMultiChoiceItems(elementos, selected, (dialogInterface, i, b) -> elementosEscollidos.set(i , b))
@@ -156,14 +155,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         textView.setText(builder.toString().trim());
-    }
-
-    private boolean[] formatSelected(){
-        boolean[] selected = new boolean[elementosEscollidos.size()];
-        for(int i = 0 ; i < selected.length ; i++){
-            selected[i] = elementosEscollidos.get(i);
-        }
-        return selected;
     }
 
     public void escribirFicheiro(File file , String txt){
