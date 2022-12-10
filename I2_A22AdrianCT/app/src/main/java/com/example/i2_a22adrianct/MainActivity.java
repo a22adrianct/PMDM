@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
 
                 int secs = (int) timeElapsed / 1000;
                 if (secs == selfDestructionTime){
+
                     finish();
                 }
             }

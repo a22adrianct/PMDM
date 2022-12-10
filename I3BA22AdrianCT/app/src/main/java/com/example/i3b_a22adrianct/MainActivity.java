@@ -52,13 +52,13 @@ public class MainActivity extends FragmentActivity {
                 builder.setTitle("Escolle unha opción");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Chamar", (DialogInterface.OnClickListener) (dialog, wich) -> {
-                    if (bundle != null) {
+                    if (bundle != null && bundle.getString("TELEFONO").length() > 0) {
                         numTelf = bundle.getString("TELEFONO");
                         Intent callIntent = new Intent(Intent.ACTION_DIAL);
                         callIntent.setData(Uri.parse("tel:"+numTelf));
                         startActivity(callIntent);
                     }
-                    else if (bundle == null || bundle.getString("TELEFONO").isEmpty()){
+                    else if (bundle == null || bundle.getString("TELEFONO").length() < 1){
                         Toast.makeText(getApplicationContext(), "O campo teléfono está baleiro", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -84,11 +84,12 @@ public class MainActivity extends FragmentActivity {
                 numTelf = "";
 
                 if (bundle != null){
-                    texto = bundle.getString("TEXTO");
-                }
-
-                if (bundle != null){
-                    numTelf = bundle.getString("TELEFONO");
+                    if (bundle.getString("TEXTO").length() > 0){
+                        texto = bundle.getString("TEXTO");
+                    }
+                    if (bundle.getString("TELEFONO").length() > 0){
+                        numTelf = bundle.getString("TELEFONO");
+                    }
                 }
                 Toast.makeText(getApplicationContext(), texto + "\n" + numTelf, Toast.LENGTH_SHORT).show();
             }

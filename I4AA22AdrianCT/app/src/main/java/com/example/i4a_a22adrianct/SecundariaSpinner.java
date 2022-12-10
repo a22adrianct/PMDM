@@ -34,8 +34,9 @@ public class SecundariaSpinner extends AppCompatActivity {
         ArrayList<String> coches = new ArrayList<String>();
             try {
                 BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(rutaCompleta)));
-                while(br.readLine() != null){
-                    coches.add(br.readLine());
+                String liña = "";
+                while((liña = br.readLine()) != null){
+                    coches.add(liña);
                 }
                 br.close();
             } catch (FileNotFoundException e) {

@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         spinnerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 startActivity(intentSpinner);
             }
         });
