@@ -16,7 +16,11 @@
             android:id="@+id/et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
             android:hint="Escribe aquí"/>
+=======
+            android:hint="Escribe aqui"/>
+>>>>>>> origin/main
 
         <Button
             android:id="@+id/btnEngadir"
