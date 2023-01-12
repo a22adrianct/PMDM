@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:outlineAmbientShadowColor="@color/black"
+    android:outlineSpotShadowColor="@color/black"
+    tools:context=".MainActivity"
+    tools:ignore="UseSwitchCompatOrMaterialXml">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="top|center">
+
+        <EditText
+            android:id="@+id/textoEscribir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Escribe algo"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/engadir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Engadir"/>
+
+            <RadioButton
+                android:id="@+id/sobreescribir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sobreescribir"/>
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btnEscribir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Engadir / Sobreescribir"
+            android:onClick="onEscribirClick"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnListView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ListView"
+                android:onClick="onListViewClick"
+                android:layout_margin="5dp"/>
+
+            <Button
+                android:id="@+id/btnSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Spinner"
+                android:onClick="onSpinnerClick"
+                android:layout_margin="5dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
