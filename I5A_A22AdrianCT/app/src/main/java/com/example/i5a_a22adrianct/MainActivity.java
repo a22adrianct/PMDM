@@ -72,17 +72,21 @@ public class MainActivity extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.CAMERA}, 1);
         } else {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivity(intent);
+            startActivityForResult(intent, 1);
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == Activity.RESULT_OK){
-            Bitmap picture = (Bitmap) data.getExtras().get("data");
-            ImageView image = (ImageView) findViewById(R.id.image);
-            image.setImageBitmap(picture);
+        if(requestCode == 1){
+            if(resultCode == Activity.RESULT_OK){
+                Bitmap picture = (Bitmap) data.getExtras().get("data");
+                ImageView image = (ImageView) findViewById(R.id.image);
+                image.setImageBitmap(picture);
+            } else {
+                Toast.makeText(this, "Non se gardou a imaxe", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
