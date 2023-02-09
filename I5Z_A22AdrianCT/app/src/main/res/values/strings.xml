@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">I5Z_A22AdrianCT</string>
+    <string name="et_directory_hint">Directory</string>
+    <string name="et_file_hint">File</string>
+    <string name="rb_internal_txt">Internal</string>
+    <string name="rb_sd_txt">SD</string>
+    <string name="rb_raw_txt">Raw</string>
+    <string name="cb_overwrite_txt">OverWrite</string>
+    <string name="et_sentences_hint">Type some sentences</string>
+    <string name="btn_write_add_txt">Write/Add</string>
+    <string name="btn_read_txt">Read</string>
+    <string name="btn_delete_txt">Delete</string>
+    <string name="btn_list_txt">List</string>
+</resources>
