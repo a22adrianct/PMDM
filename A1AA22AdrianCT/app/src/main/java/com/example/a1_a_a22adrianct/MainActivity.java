@@ -6,19 +6,25 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     Button btnAlta, btnCargar;
+    BaseDatos bd;
+    SQLiteDatabase sqLite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        bd = new BaseDatos(this);
+        sqLite = bd.getWritableDatabase();
         databaseDialog();
 
         btnAlta = findViewById(R.id.btnAlta);
@@ -48,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         dialog.setPositiveButton("Código", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
             }
         });
 

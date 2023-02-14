@@ -1,6 +1,7 @@
 package com.example.a1_a_a22adrianct;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -8,17 +9,20 @@ import androidx.annotation.Nullable;
 
 public class BaseDatos extends SQLiteOpenHelper {
 
-    public BaseDatos(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public BaseDatos(@Nullable Context context) {
+        super(context, "basedatos", null, 1);
     }
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE persoa (" +
+                "nombre VARCHAR(20) PRIMARY KEY, " +
+                "descripcion VARCHAR(200));");
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        db.execSQL("DROP TABLE IF EXISTS persoa");
+        onCreate(db);
     }
 }
