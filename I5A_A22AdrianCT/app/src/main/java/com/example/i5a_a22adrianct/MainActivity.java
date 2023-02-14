@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,13 +27,26 @@ public class MainActivity extends AppCompatActivity {
 
         TextView tv = (TextView) findViewById(R.id.launch_camera);
 
-        tv.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
+        registerForContextMenu(tv);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo info){
+        super.onCreateContextMenu(menu, v, info);
+        getMenuInflater().inflate(R.menu.menus, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.menu_camera:
                 openCamera();
                 return true;
-            }
-        });
+            case R.id.menu_exit:
+                System.exit(0);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

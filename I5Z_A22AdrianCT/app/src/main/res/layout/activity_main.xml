@@ -42,6 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/rb_internal_txt"
+                android:checked="true"
                 android:layout_weight="1"/>
 
             <RadioButton
@@ -88,24 +89,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btn_write_add_txt"
+            android:textScaleX="0.5"
             android:layout_weight="1"/>
         <Button
             android:id="@+id/btn_read"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btn_read_txt"
+            android:textScaleX="0.7"
             android:layout_weight="1"/>
         <Button
             android:id="@+id/btn_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btn_delete_txt"
+            android:textScaleX="0.7"
             android:layout_weight="1"/>
         <Button
             android:id="@+id/btn_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btn_list_txt"
+            android:textScaleX="0.7"
             android:layout_weight="1"/>
     </LinearLayout>
     <LinearLayout
@@ -116,6 +121,7 @@
         <TextView
             android:id="@+id/tv_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:autoLink="web"/>
     </LinearLayout>
 </LinearLayout>

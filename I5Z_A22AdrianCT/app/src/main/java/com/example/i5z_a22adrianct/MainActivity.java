@@ -22,8 +22,10 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
         btnList = (Button) findViewById(R.id.btn_list);
         tv = (TextView) findViewById(R.id.tv_text);
         sdDir = getExternalFilesDir(null);
-
-        initRaw();
 
         btnWrite.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if(rbRaw.isChecked()){
-                    readRawFiles(getFilesDir().toString() + "/raw");
+                    readRawFiles();
                 }
             }
         });
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if(rbRaw.isChecked()){
-                    listRawFiles(getFilesDir().toString() + "/raw");
+                    listRawFiles();
                 }
             }
         });
@@ -133,25 +133,28 @@ public class MainActivity extends AppCompatActivity {
 
     public void writeToStorage(String dirType, int context){
         boolean append;
+
         try{
-            File dir = new File(dirType, etDir.getText().toString());
+            File dir = new File(dirType, etDir.getText().toString().trim());
 
             if(!dir.exists()){
-                dir.mkdir();
+                dir.mkdirs();
             }
 
-            File file = new File(dir, etFile.getText().toString() + ".txt");
+            if(!etFile.getText().toString().isEmpty()){
+                File file = new File(dir, etFile.getText().toString());
 
-            if(context == Context.MODE_APPEND){
-                append = true;
-            } else {
-                append = false;
+                if(context == Context.MODE_APPEND){
+                    append = true;
+                } else {
+                    append = false;
+                }
+
+                OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(file.getAbsolutePath(), append));
+
+                osw.write(etSentence.getText().toString() + "\n");
+                osw.close();
             }
-
-            OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(file.getAbsolutePath(), append));
-
-            osw.write(etSentence.getText().toString() + "\n");
-            osw.close();
         } catch(IOException e){
             e.printStackTrace();
         }
@@ -159,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void readFromStorage(String dirType){
         File dir = new File(dirType, etDir.getText().toString());
-        File file = new File(dir, etFile.getText().toString() + ".txt");
+        File file = new File(dir, etFile.getText().toString());
 
         tv.setText("");
 
@@ -178,36 +181,50 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void readRawFiles(String dirType){
-        File dir = new File(dirType);
-        File file = new File(dir, etFile.getText().toString() + ".txt");
-
+    public void readRawFiles(){
         tv.setText("");
+        int id = -1;
 
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file.getAbsolutePath())));
+        if(etFile.getText().toString().equals("ola")){
+            id = R.raw.ola;
+        }
+
+        if(etFile.getText().toString().equals("adeus")){
+            id = R.raw.adeus;
+        }
+
+        try{
+            InputStream is = getResources().openRawResource(id);
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String text;
-            while((text = br.readLine()) != null){
-                tv.append(text);
-                tv.append("\n");
-            }
+            while ((text = br.readLine()) != null)
+                tv.append(text + "\n");
             br.close();
-        } catch (FileNotFoundException e) {
-            Toast.makeText(this, "Could not find file: " + file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            is.close();
+        }catch(Exception e){
+            Toast.makeText(this, "Could not find file: " + etFile.getText().toString() + " in RAW", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void deleteSelectedFile(String dirType){
         File dir = new File(dirType, etDir.getText().toString());
-        File file = new File(dir, etFile.getText().toString() + ".txt");
 
-        if(file.exists()){
-            file.delete();
-            Toast.makeText(MainActivity.this, "File deleted: " + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
+        if(!etFile.getText().toString().isEmpty()){
+            File file = new File(dir, etFile.getText().toString());
+
+            if(file.exists()){
+                file.delete();
+                Toast.makeText(MainActivity.this, "File deleted: " + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(MainActivity.this, "File: " + file.getAbsolutePath() + " does not exist.", Toast.LENGTH_LONG).show();
+            }
         } else {
-            Toast.makeText(MainActivity.this, "File: " + file.getAbsolutePath() + " does not exist.", Toast.LENGTH_LONG).show();
+            if(dir.isDirectory() && dir.list().length == 0){
+                dir.delete();
+                Toast.makeText(MainActivity.this, "Directory: " + dir.getAbsolutePath() + " deleted succesfully.", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(MainActivity.this, "Directory: " + dir.getAbsolutePath() + " is not empty.", Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -220,70 +237,26 @@ public class MainActivity extends AppCompatActivity {
         String[] files = dir.list();
 
         if(files == null){
-            dir.mkdir();
-            files = dir.list();
-        }
-
-        for(int i = 0; i < files.length; i++){
-            File file = new File(dir, "/" + files[i]);
-            if(file.isFile()){
-                tv.append("\nFile: " + files[i]);
-            } else {
-                tv.append("\nDirectory: " + files[i]);
+            Toast.makeText(MainActivity.this, "Directory: " + dir.getAbsolutePath() + " is empty.", Toast.LENGTH_LONG).show();
+        } else {
+            for(int i = 0; i < files.length; i++){
+                File file = new File(dir, "/" + files[i]);
+                if(file.isFile()){
+                    tv.append("\nFile: " + files[i]);
+                } else {
+                    tv.append("\nDirectory: " + files[i]);
+                }
             }
         }
     }
 
-    public void listRawFiles(String dirType){
+    public void listRawFiles(){
         tv.setText("");
 
-        File dir = new File(dirType);
-        tv.append(dir.getAbsolutePath());
-
-        String[] files = dir.list();
-
-        if(files == null){
-            dir.mkdir();
-            files = dir.list();
-        }
-
-        for(int i = 0; i < files.length; i++){
-            File file = new File(dir, "/" + files[i]);
-            if(file.isFile()){
-                tv.append("\nFile: " + files[i]);
-            } else {
-                tv.append("\nDirectory: " + files[i]);
-            }
-        }
-    }
-
-    public void initRaw(){
-        String path = getFilesDir().getAbsolutePath() + "/raw";
-        File dir = new File(path);
-
-        if(!dir.exists()){
-            dir.mkdir();
-        }
-
-        File rawFile1 = new File(dir, "ola.txt");
-        File rawFile2 = new File(dir, "adeus.txt");
-
-        OutputStreamWriter osw1 = null;
-        OutputStreamWriter osw2 = null;
-        try {
-            osw1 = new OutputStreamWriter(new FileOutputStream(rawFile1.getAbsolutePath()));
-
-            osw1.write("Example RAW file 1");
-            osw1.close();
-
-            osw2 = new OutputStreamWriter(new FileOutputStream(rawFile2.getAbsolutePath()));
-
-            osw2.write("Example RAW file 2");
-            osw2.close();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        StringBuilder builder = new StringBuilder();
+        builder.append("RAW Content:\n");
+        builder.append("\tFile: ola.txt\n");
+        builder.append("\tFile: adeus.txt");
+        tv.setText(builder.toString());
     }
 }

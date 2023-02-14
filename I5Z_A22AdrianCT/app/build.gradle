@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.i5z_a22adrianct"
-        minSdk 28
+        minSdk 22
         targetSdk 33
         versionCode 1
         versionName "1.0"
