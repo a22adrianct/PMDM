@@ -36,7 +36,7 @@ public class ActivityAlta extends AppCompatActivity {
                     ContentValues values = new ContentValues();
                     values.put("nombre", etNombre.getText().toString());
                     values.put("descripcion", etDesc.getText().toString());
-                    db.insertOrThrow("persoa", null, values);
+                    db.insertOrThrow("persona", null, values);
                 } catch (android.database.sqlite.SQLiteConstraintException e){
                     Toast.makeText(ActivityAlta.this, etNombre.getText().toString() + " ya existe en la base de datos", Toast.LENGTH_SHORT).show();
                 }

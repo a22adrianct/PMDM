@@ -12,23 +12,33 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 public class MainActivity extends AppCompatActivity {
 
     Button btnAlta, btnCargar;
     BaseDatos bd;
     SQLiteDatabase sqLite;
+    String dbPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bd = new BaseDatos(this);
-        sqLite = bd.getWritableDatabase();
-        databaseDialog();
-
         btnAlta = findViewById(R.id.btnAlta);
         btnCargar = findViewById(R.id.btnCargar);
+
+        dbPath = "/data/data/" + getPackageName() + "/databases/";
+        File dbFile = new File(dbPath, "basedatos");
+
+        if(!dbFile.exists()){
+            databaseDialog();
+        }
 
         btnAlta.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,13 +64,34 @@ public class MainActivity extends AppCompatActivity {
         dialog.setPositiveButton("Código", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                bd = new BaseDatos(MainActivity.this);
+                sqLite = bd.getWritableDatabase();
             }
         });
 
         dialog.setNegativeButton("Assets", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                File dbPathFile = new File(dbPath);
+                dbPathFile.mkdirs();
 
+                try{
+                    InputStream is = getAssets().open("basedatos");
+                    OutputStream os = new FileOutputStream(dbPath);
+
+                    int num;
+                    byte[] buffer = new byte[2048];
+
+                    while ((num = is.read(buffer)) > 0){
+                        os.write(buffer, 0, num);
+                    }
+
+                    is.close();
+                    os.flush();
+                    os.close();
+                } catch(IOException e){
+
+                }
             }
         });
 

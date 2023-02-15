@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 public class BaseDatos extends SQLiteOpenHelper {
 
     public BaseDatos(@Nullable Context context) {
@@ -15,7 +17,7 @@ public class BaseDatos extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE persoa (" +
+        db.execSQL("CREATE TABLE persona (" +
                 "nombre VARCHAR(20) PRIMARY KEY, " +
                 "descripcion VARCHAR(200));");
     }

@@ -1,13 +1,10 @@
 package com.example.a1_a_a22adrianct;
 
-public class Persoa {
+public class Persona {
 
-    String nombre, descripcion;
+    String nombre;
+    String descripcion;
 
-    public Persoa(String nombre, String descripcion){
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-    }
 
     public String getNombre() {
         return nombre;
