@@ -2,7 +2,9 @@ package com.example.i4a_a22adrianct;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -21,7 +23,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,23 +46,32 @@ public class MainActivity extends AppCompatActivity {
         comprobarEstadoSD();
         establecerDirectorioFicheiro();
 
-        Button spinnerBtn = (Button) findViewById(R.id.btnSpinner);
-        Button listViewBtn = (Button) findViewById(R.id.btnListView);
+        Button dialogBtn = (Button) findViewById(R.id.btnDialogo);
 
         Intent intentSpinner = new Intent(this, SecundariaSpinner.class);
         Intent intentListView = new Intent(this, SecundariaListView.class);
 
-        spinnerBtn.setOnClickListener(new View.OnClickListener() {
+        dialogBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(intentSpinner);
-            }
-        });
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
 
-        listViewBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(intentListView);
+                dialog.setTitle("¿Cómo quieres ver los datos?");
+                dialog.setPositiveButton("Spinner", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(intentSpinner);
+                    }
+                });
+
+                dialog.setNegativeButton("Listview", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(intentListView);
+                    }
+                });
+                dialog.setCancelable(false);
+                dialog.show();
             }
         });
     }

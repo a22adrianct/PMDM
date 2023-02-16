@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,13 +17,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -255,8 +250,8 @@ public class MainActivity extends AppCompatActivity {
 
         StringBuilder builder = new StringBuilder();
         builder.append("RAW Content:\n");
-        builder.append("\tFile: ola.txt\n");
-        builder.append("\tFile: adeus.txt");
+        builder.append("\tFile: ola\n");
+        builder.append("\tFile: adeus");
         tv.setText(builder.toString());
     }
 }

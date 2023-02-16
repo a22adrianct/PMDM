@@ -8,6 +8,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -57,6 +60,24 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.menu_preferencias:
+                Intent intent = new Intent(MainActivity.this, ActivityPreferencias.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void databaseDialog(){
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 
@@ -77,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
                 try{
                     InputStream is = getAssets().open("basedatos");
-                    OutputStream os = new FileOutputStream(dbPath);
+                    OutputStream os = new FileOutputStream(dbPath + "basedatos");
 
                     int num;
                     byte[] buffer = new byte[2048];
@@ -90,13 +111,10 @@ public class MainActivity extends AppCompatActivity {
                     os.flush();
                     os.close();
                 } catch(IOException e){
-
                 }
             }
         });
-
         dialog.setCancelable(false);
-
         dialog.show();
     }
 }

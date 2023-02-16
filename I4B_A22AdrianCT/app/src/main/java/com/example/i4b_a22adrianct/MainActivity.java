@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void actualizarElementos(){
         ArrayList<String> lines = new ArrayList<>();
+
         String line;
         try{
             BufferedReader br = new BufferedReader( new FileReader(ficheiro));
@@ -124,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
         elementos = new String[lines.size()];
 
-        for(int i = 0 ; i < elementos.length ; i++){
+        for(int i = 0 ; i < lines.size() ; i++){
             elementos[i] = lines.get(i);
         }
     }

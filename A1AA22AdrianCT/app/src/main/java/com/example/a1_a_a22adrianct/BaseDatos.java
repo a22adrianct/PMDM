@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class BaseDatos extends SQLiteOpenHelper {
@@ -17,14 +18,16 @@ public class BaseDatos extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE persona (" +
-                "nombre VARCHAR(20) PRIMARY KEY, " +
-                "descripcion VARCHAR(200));");
+        File bd = new File("/data/data/com.example.a1_a_a22adrianct/databases/basedatos");
+        if(!bd.exists()){
+            db.execSQL("CREATE TABLE persona (" +
+                    "nombre VARCHAR(20) PRIMARY KEY, " +
+                    "descripcion VARCHAR(200));");
+        }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("DROP TABLE IF EXISTS persoa");
-        onCreate(db);
+
     }
 }

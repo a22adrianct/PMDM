@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:EditTextPreferenceandroid="http://schemas.android.com/apk/res-auto"
+    android:title="Preferencias">
+
+    <PreferenceCategory android:title="Ruta ficheros personas">
+
+        <EditTextPreference
+            android:id="@+id/etPreferencia"
+            android:title="Preferencia de ruta"
+            android:summary="Guarda la ruta de los ficheros de las personas en la tarjeta SD"/>
+    </PreferenceCategory>
+</PreferenceScreen>

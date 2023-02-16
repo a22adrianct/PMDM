@@ -8,11 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.i4b_a22adrianct"
-<<<<<<< HEAD
         minSdk 22
-=======
-        minSdk 28
->>>>>>> origin/main
         targetSdk 32
         versionCode 1
         versionName "1.0"

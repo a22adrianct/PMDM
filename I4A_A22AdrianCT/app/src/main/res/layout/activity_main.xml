@@ -55,20 +55,13 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnListView"
+                android:id="@+id/btnDialogo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ListView"
+                android:text="Diálogo"
                 android:onClick="onListViewClick"
                 android:layout_margin="5dp"/>
 
-            <Button
-                android:id="@+id/btnSpinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Spinner"
-                android:onClick="onSpinnerClick"
-                android:layout_margin="5dp"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
