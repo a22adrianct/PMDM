@@ -14,8 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,9 +93,34 @@ public class ActivityDatos extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sp = getSharedPreferences("PREFERENCIAS", MODE_PRIVATE);
-                destino = new File(ruta, sp.getString("RUTA", ""));
-                Toast.makeText(ActivityDatos.this, destino.getAbsolutePath().toString(), Toast.LENGTH_SHORT).show();
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(ActivityDatos.this);
+                String ruta = sp.getString("etPreferencia", "DATOS");
+
+                File path = new File(getExternalFilesDir(null) + "/" + ruta);
+                if(!path.exists()){
+                    path.mkdirs();
+                }
+
+                destino = new File(path, spinner.getSelectedItem().toString() + ".txt");
+                if(!destino.exists()){
+                    try {
+                        destino.createNewFile();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+                try {
+                    OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(destino));
+                    osw.write(spinner.getSelectedItem().toString() + ":\n" + tv.getText().toString());
+                    osw.close();
+
+                    Toast.makeText(ActivityDatos.this, "Persona guardada en: " + destino.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
     }

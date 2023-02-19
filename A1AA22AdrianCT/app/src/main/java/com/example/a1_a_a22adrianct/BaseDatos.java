@@ -18,12 +18,10 @@ public class BaseDatos extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        File bd = new File("/data/data/com.example.a1_a_a22adrianct/databases/basedatos");
-        if(!bd.exists()){
-            db.execSQL("CREATE TABLE persona (" +
-                    "nombre VARCHAR(20) PRIMARY KEY, " +
-                    "descripcion VARCHAR(200));");
-        }
+        db.execSQL("CREATE TABLE IF NOT EXISTS persona (" +
+            "nombre VARCHAR(20) PRIMARY KEY, " +
+            "descripcion VARCHAR(200));");
+
     }
 
     @Override

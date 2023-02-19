@@ -4,6 +4,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.PreferenceActivity;
+import android.widget.EdgeEffect;
+
+import androidx.preference.PreferenceManager;
 
 public class ActivityPreferencias extends PreferenceActivity {
 
@@ -15,17 +18,14 @@ public class ActivityPreferencias extends PreferenceActivity {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferencias);
 
-        etp = (EditTextPreference) findPreference("etPath");
+        etp = (EditTextPreference) findPreference("etPreferencia");
+        etp.setDefaultValue("DATOS");
+
+        PreferenceManager.setDefaultValues(this, R.xml.preferencias, false);
     }
 
     @Override
     public void onResume(){
         super.onResume();
-
-        SharedPreferences sp = getSharedPreferences("PREFERENCIAS", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        String text = etp.getText();
-        editor.putString("RUTA", text);
-        editor.apply();
     }
 }
