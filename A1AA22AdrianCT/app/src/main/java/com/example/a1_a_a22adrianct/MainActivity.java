@@ -3,12 +3,10 @@ package com.example.a1_a_a22adrianct;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
         btnCargar = findViewById(R.id.btnCargar);
 
         dbPath = "/data/data/" + getPackageName() + "/databases/";
-        File dbFile = new File(dbPath, "basedatos");
+        File dbFile = new File(dbPath, "DATOS");
 
-        if(!dbFile.exists()){
+        if (!dbFile.exists()) {
             databaseDialog();
         }
 
@@ -54,21 +52,20 @@ public class MainActivity extends AppCompatActivity {
         btnCargar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ActivityDatos.class);
-                startActivity(intent);
+                createDialog();
             }
         });
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.menu_preferencias:
                 Intent intent = new Intent(MainActivity.this, ActivityPreferencias.class);
                 startActivity(intent);
@@ -78,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void databaseDialog(){
+    private void databaseDialog() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 
         dialog.setTitle("¿Cómo quieres crear la base de datos?");
@@ -96,24 +93,49 @@ public class MainActivity extends AppCompatActivity {
                 File dbPathFile = new File(dbPath);
                 dbPathFile.mkdirs();
 
-                try{
-                    InputStream is = getAssets().open("basedatos");
-                    OutputStream os = new FileOutputStream(dbPath + "basedatos");
+                try {
+                    InputStream is = getAssets().open("DATOS");
+                    OutputStream os = new FileOutputStream(dbPath + "DATOS");
 
                     int num;
                     byte[] buffer = new byte[2048];
 
-                    while ((num = is.read(buffer)) > 0){
+                    while ((num = is.read(buffer)) > 0) {
                         os.write(buffer, 0, num);
                     }
 
                     is.close();
                     os.flush();
                     os.close();
-                } catch(IOException e){
+                } catch (IOException e) {
+                    Toast.makeText(MainActivity.this, "Se ha producido un error al copiar la base de datos", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
+    private void createDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+
+        dialog.setTitle("¿Cómo quieres ver los datos?");
+        dialog.setPositiveButton("Spinner", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent = new Intent(MainActivity.this, ActivityDatosSpinner.class);
+                startActivity(intent);
+            }
+        });
+
+        dialog.setNegativeButton("ListView", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent = new Intent(MainActivity.this, ActivityDatosListview.class);
+                startActivity(intent);
+            }
+        });
+
         dialog.setCancelable(false);
         dialog.show();
     }

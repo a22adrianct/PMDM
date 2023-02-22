@@ -1,10 +1,8 @@
 package com.example.a1_a_a22adrianct;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.PreferenceActivity;
-import android.widget.EdgeEffect;
 
 import androidx.preference.PreferenceManager;
 

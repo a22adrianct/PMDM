@@ -1,8 +1,6 @@
 package com.example.a1_a_a22adrianct;
 
 import android.content.ContentValues;
-import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -32,14 +30,18 @@ public class ActivityAlta extends AppCompatActivity {
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try{
-                    ContentValues values = new ContentValues();
-                    values.put("nombre", etNombre.getText().toString());
-                    values.put("descripcion", etDesc.getText().toString());
-                    db.insertOrThrow("persona", null, values);
-                    Toast.makeText(ActivityAlta.this, etNombre.getText().toString() + " se añadió correctamente a la base de datos", Toast.LENGTH_SHORT).show();
-                } catch (android.database.sqlite.SQLiteConstraintException e){
-                    Toast.makeText(ActivityAlta.this, etNombre.getText().toString() + " ya existe en la base de datos", Toast.LENGTH_SHORT).show();
+                if(!etNombre.getText().toString().isEmpty()){
+                    try{
+                        ContentValues values = new ContentValues();
+                        values.put("nombre", etNombre.getText().toString());
+                        values.put("descripcion", etDesc.getText().toString());
+                        db.insertOrThrow("persona", null, values);
+                        Toast.makeText(ActivityAlta.this, etNombre.getText().toString() + " se añadió correctamente a la base de datos", Toast.LENGTH_SHORT).show();
+                    } catch (android.database.sqlite.SQLiteConstraintException e){
+                        Toast.makeText(ActivityAlta.this, etNombre.getText().toString() + " ya existe en la base de datos", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(ActivityAlta.this, "El campo \"nombre\" no puede estar vacío" ,Toast.LENGTH_SHORT).show();
                 }
             }
         });

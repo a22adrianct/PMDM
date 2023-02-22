@@ -1,19 +1,15 @@
 package com.example.a1_a_a22adrianct;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import java.io.File;
-import java.util.ArrayList;
-
 public class BaseDatos extends SQLiteOpenHelper {
 
     public BaseDatos(@Nullable Context context) {
-        super(context, "basedatos", null, 1);
+        super(context, "DATOS", null, 1);
     }
 
     @Override
@@ -25,7 +21,8 @@ public class BaseDatos extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
     }
+
 }
