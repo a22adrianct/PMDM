@@ -3,8 +3,7 @@ package com.example.a1_a_a22adrianct;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.PreferenceActivity;
-
-import androidx.preference.PreferenceManager;
+import android.preference.PreferenceManager;
 
 public class ActivityPreferencias extends PreferenceActivity {
 

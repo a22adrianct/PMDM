@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,7 +20,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.PreferenceManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,6 +36,8 @@ public class ActivityDatosListview extends AppCompatActivity {
     BaseDatos bd;
     SQLiteDatabase db;
     int posicion;
+    Utils utils;
+    ArrayList<Persona> personas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +48,13 @@ public class ActivityDatosListview extends AppCompatActivity {
         tv = findViewById(R.id.tvDescripcion);
         btn = findViewById(R.id.btnGuardar);
 
+        utils = new Utils();
         posicion = -1;
 
         bd = new BaseDatos(this);
         db = bd.getWritableDatabase();
 
-        ArrayList<Persona> personas = getPersonas();
+        personas = utils.getPersonas(db);
         ArrayList<String> nombres = new ArrayList<>();
         for(int i = 0; i < personas.size(); i++){
             String nombre = personas.get(i).getNombre();
@@ -76,76 +79,36 @@ public class ActivityDatosListview extends AppCompatActivity {
             public void onClick(View v) {
                     if(Build.VERSION.SDK_INT >= 23){
                         if(checkSelfPermission(WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-                            guardarPersona();
+                            if(posicion >= 0){
+                                utils.guardarPersona(personas.get(posicion),ActivityDatosListview.this);
+                                Toast.makeText(ActivityDatosListview.this, "Persona guardada correctamente " , Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(ActivityDatosListview.this, "No hay ninguna persona seleccionada", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE}, 1);
                         }
                     } else {
-                        guardarPersona();
-                }
+                        if(posicion >= 0){
+                            utils.guardarPersona(personas.get(posicion), ActivityDatosListview.this);
+                            Toast.makeText(ActivityDatosListview.this, "Persona guardada correctamente " , Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(ActivityDatosListview.this, "No hay ninguna persona seleccionada", Toast.LENGTH_SHORT).show();
+                        }                }
             }
         });
-    }
-
-    public ArrayList<Persona> getPersonas(){
-        ArrayList<Persona> list = new ArrayList<>();
-        Persona persona;
-
-        Cursor cursor = db.rawQuery("SELECT * FROM persona", null);
-
-        if(cursor.moveToFirst()){
-            do{
-                persona = new Persona();
-                persona.setNombre(cursor.getString(0));
-                persona.setDescripcion(cursor.getString(1));
-                list.add(persona);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-
-        return list;
-    }
-
-    public void guardarPersona() {
-        if (posicion >= 0) {
-            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(ActivityDatosListview.this);
-            String ruta = sp.getString("etPreferencia", "DATOS");
-
-            File path = new File(Environment.getExternalStorageDirectory() + "/" + ruta);
-            if (!path.exists()) {
-                path.mkdirs();
-            }
-
-            File destino = new File(path, listView.getItemAtPosition(posicion).toString() + ".txt");
-
-            try {
-                destino.createNewFile();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-            try {
-                OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(destino));
-                osw.write(listView.getItemAtPosition(posicion).toString() + ":\n" + tv.getText().toString());
-                osw.close();
-
-                Toast.makeText(ActivityDatosListview.this, "Persona guardada en: " + destino.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            Toast.makeText(ActivityDatosListview.this, "No hay ninguna persona seleccionada", Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            guardarPersona();
-        else
+            if(posicion >= 0){
+                utils.guardarPersona(personas.get(posicion), ActivityDatosListview.this);
+                Toast.makeText(ActivityDatosListview.this, "Persona guardada correctamente " , Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(ActivityDatosListview.this, "No hay ninguna persona seleccionada", Toast.LENGTH_SHORT).show();
+            }        else
             Toast.makeText(this, "Se necesitan permisos para escribir en SD", Toast.LENGTH_SHORT).show();
     }
 }
