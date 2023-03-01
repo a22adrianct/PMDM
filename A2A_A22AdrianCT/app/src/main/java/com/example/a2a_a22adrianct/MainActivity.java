@@ -9,23 +9,17 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
-<<<<<<< HEAD
-=======
-import android.net.Uri;
->>>>>>> refs/remotes/origin/main
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -61,13 +55,8 @@ public class MainActivity extends AppCompatActivity {
         btnFoto = findViewById(R.id.btnFoto);
         iv = findViewById(R.id.iv);
 
-<<<<<<< HEAD
         musicPath = Environment.getExternalStorageDirectory() + "/UD-A2A/MUSICA/A22AdrianCT";
         photoPath = Environment.getExternalStorageDirectory() + "/UD-A2A/FOTO/A22AdrianCT";
-=======
-        musicPath = Environment.getExternalStorageDirectory() + "/" + "UD-A2A/MUSICA/A22AdrianCT/";
-        photoPath = Environment.getExternalStorageDirectory() + "/" + "UD-A2A/FOTO/A22AdrianCT/";
->>>>>>> refs/remotes/origin/main
         mediaPlayer = new MediaPlayer();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -148,11 +137,7 @@ public class MainActivity extends AppCompatActivity {
         mediaRecorder.setAudioEncodingBitRate(32768);
         mediaRecorder.setAudioSamplingRate(8000);
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-<<<<<<< HEAD
-        mediaRecorder.setOutputFile(musicPath + "/record" + (files.length-1) + ".3gp");
-=======
         mediaRecorder.setOutputFile(musicPath + "record.3gp");
->>>>>>> refs/remotes/origin/main
 
         try {
             mediaRecorder.prepare();
@@ -169,12 +154,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 mediaRecorder.stop();
                 mediaRecorder.release();
-<<<<<<< HEAD
                 Toast.makeText(MainActivity.this, "Grabación finalizada y guardada en: " + musicPath + "record" + (files.length-1) + ".3gp", Toast.LENGTH_SHORT).show();
-=======
                 mediaRecorder = null;
                 Toast.makeText(MainActivity.this, "Grabación finalizada y guardada en: " + musicPath + "record.3gp", Toast.LENGTH_SHORT).show();
->>>>>>> refs/remotes/origin/main
                 setSpinnerAdapter();
             }
         });
@@ -258,7 +240,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Es necesario conceder los permisos para realizar ésta acción", Toast.LENGTH_SHORT).show();
     }
 
-<<<<<<< HEAD
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -278,24 +259,6 @@ public class MainActivity extends AppCompatActivity {
                 throw new RuntimeException(e);
             } catch (IOException e) {
                 throw new RuntimeException(e);
-=======
-    private void takePhoto(){
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, 1);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1){
-            if(resultCode == Activity.RESULT_OK){
-                Bitmap picture = (Bitmap) data.getExtras().get("data");
-                iv.setImageBitmap(picture);
-                File photoFile = new File(photoPath, "foto");
-                data.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-            } else {
-                Toast.makeText(this, "No se guardó la imagen", Toast.LENGTH_SHORT).show();
->>>>>>> refs/remotes/origin/main
             }
         }
     }
