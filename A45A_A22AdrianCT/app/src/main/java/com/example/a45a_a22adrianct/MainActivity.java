@@ -54,17 +54,9 @@ public class MainActivity extends AppCompatActivity {
                            != PackageManager.PERMISSION_GRANTED) {
                        requestPermissions(new String[] {WRITE_EXTERNAL_STORAGE}, 1);
                    } else {
-                        hilo = new Hilo();
+                       tv.setText("");
+                       hilo = new Hilo(tv);
                         hilo.start();
-
-                       try {
-                           tv.setText("");
-                           processXML();
-                       } catch (XmlPullParserException e) {
-                           throw new RuntimeException(e);
-                       } catch (IOException e) {
-                           throw new RuntimeException(e);
-                       }
                    }
                }
             }
@@ -76,58 +68,12 @@ public class MainActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
             if(requestCode == 1){
-               hilo = new Hilo();
+                tv.setText("");
+               hilo = new Hilo(tv);
                hilo.start();
-
-                try {
-                    processXML();
-                } catch (XmlPullParserException e) {
-                    throw new RuntimeException(e);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
             }
         }
         else
             Toast.makeText(this, "Es necesario conceder los permisos para realizar ésta acción", Toast.LENGTH_SHORT).show();
-    }
-
-    private void processXML() throws XmlPullParserException, IOException {
-        File file = new File(Environment.getExternalStorageDirectory() + "/RUTAS/ficheiro.xml");
-
-        XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-        XmlPullParser parser = factory.newPullParser();
-
-        FileInputStream fis = null;
-        try{
-            fis = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            Toast.makeText(this, "No se ha encontrado el fichero", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-        parser.setInput(fis, "UTF-8");
-
-        int eventType = parser.getEventType();
-        while (eventType != XmlPullParser.END_DOCUMENT) {
-            if (eventType == XmlPullParser.START_TAG && parser.getName().equals("ruta")) {
-                String nome = null;
-                String descripcion = null;
-                while (eventType != XmlPullParser.END_TAG || !parser.getName().equals("ruta")) {
-                    if (eventType == XmlPullParser.START_TAG && parser.getName().equals("nome")) {
-                        parser.next();
-                        nome = parser.getText();
-                    } else if (eventType == XmlPullParser.START_TAG && parser.getName().equals("descripcion")) {
-                        parser.next();
-                        descripcion = parser.getText();
-                    }
-                    eventType = parser.next();
-                }
-                tv.append(nome + " " + descripcion + "\n");
-            }
-            eventType = parser.next();
-        }
-        fis.close();
     }
 }

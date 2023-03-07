@@ -3,12 +3,12 @@ plugins {
 }
 
 android {
-    namespace 'com.example.a45a_a22adrianct'
+    namespace 'com.example.a45_b_a22adrianct'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.a45a_a22adrianct"
-        minSdk 21
+        applicationId "com.example.a45_b_a22adrianct"
+        minSdk 28
         targetSdk 33
         versionCode 1
         versionName "1.0"

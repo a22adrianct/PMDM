@@ -38,9 +38,6 @@ public class MainActivity extends AppCompatActivity {
                     tvThread.setText(String.valueOf(random1));
                     hilo.start();
                     Toast.makeText(MainActivity.this, "Hilo (Thread) iniciado", Toast.LENGTH_SHORT).show();
-                    while(hilo.isAlive()) {
-                    }
-                    Toast.makeText(MainActivity.this, "Se acabó el tiempo", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MainActivity.this, "Ya hay otro hilo (Thread) en ejecución", Toast.LENGTH_SHORT).show();
                 }

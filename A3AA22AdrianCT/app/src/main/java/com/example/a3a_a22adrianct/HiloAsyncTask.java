@@ -17,6 +17,12 @@ public class HiloAsyncTask extends AsyncTask {
     }
 
     @Override
+    protected void onPostExecute(Object o) {
+        super.onPostExecute(o);
+        Toast.makeText(context, "(AsyncTask) Se acabó el tiempo", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     protected Object doInBackground(Object[] objects) {
 
         for (int i = 10; i >= 0; i--) {
@@ -34,6 +40,7 @@ public class HiloAsyncTask extends AsyncTask {
         result = -1;
         return null;
     }
+
 
     public int getResult(){
         return this.result;

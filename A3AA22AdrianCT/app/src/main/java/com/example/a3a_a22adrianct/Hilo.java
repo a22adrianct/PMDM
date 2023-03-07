@@ -1,5 +1,6 @@
 package com.example.a3a_a22adrianct;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.util.Log;
@@ -27,9 +28,10 @@ public class Hilo extends Thread{
             }
         }
         result = -1;
+        ((Activity) context).runOnUiThread(() -> Toast.makeText(context, "(Thread) Se acabó el tiempo", Toast.LENGTH_SHORT).show());
     }
 
-    public int getResult() {
+    public int getResult(){
         return this.result;
     }
 }
