@@ -33,13 +33,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(hilo == null || !hilo.isAlive()){
-                    random1 = (int) (Math.random()*7)+3;
-                    hilo = new Hilo();
+                    random1 = (int) (Math.random()*4)+3;
+                    hilo = new Hilo(MainActivity.this);
                     tvThread.setText(String.valueOf(random1));
                     hilo.start();
-                    Toast.makeText(MainActivity.this, "Hilo iniciado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Hilo (Thread) iniciado", Toast.LENGTH_SHORT).show();
+                    while(hilo.isAlive()) {
+                    }
+                    Toast.makeText(MainActivity.this, "Se acabó el tiempo", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(MainActivity.this, "Ya hay otro hilo en ejecución", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Ya hay otro hilo (Thread) en ejecución", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -49,14 +52,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(hilo != null && hilo.isAlive()){
                     if(hilo.getResult() == random1){
-                        Toast.makeText(MainActivity.this, "Hilo detenido en el valor correcto", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Hilo (Thread) detenido en el valor correcto", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(MainActivity.this, "Hilo detenido en: " + hilo.getResult(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Hilo (Thread) detenido en: " + hilo.getResult(), Toast.LENGTH_SHORT).show();
                     }
                     hilo.interrupt();
                     hilo = null;
                 } else {
-                    Toast.makeText(MainActivity.this, "No hay ningún hilo en ejecución", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "No hay ningún hilo (Thread) en ejecución", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -65,13 +68,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(hiloAS == null || hiloAS.getStatus() == AsyncTask.Status.FINISHED){
-                    random2 = (int)(Math.random()*7)+2;
-                    hiloAS = new HiloAsyncTask();
+                    random2 = (int)(Math.random()*4)+3;
+                    hiloAS = new HiloAsyncTask(MainActivity.this);
                     tvAsync.setText(String.valueOf(random2));
                     hiloAS.execute();
-                    Toast.makeText(MainActivity.this, "Hilo iniciado", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(MainActivity.this, "Hilo (AsyncTask) iniciado", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(MainActivity.this, "Ya hay otro hilo en ejecución", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Ya hay otro hilo (AsyncTask) en ejecución", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -81,14 +85,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(hiloAS != null && hiloAS.getStatus() == AsyncTask.Status.RUNNING){
                     if(hiloAS.getResult() == random2){
-                        Toast.makeText(MainActivity.this, "Hilo detenido en el valor correcto", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Hilo (AsyncTask) detenido en el valor correcto", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(MainActivity.this, "Hilo detenido en: " + hiloAS.getResult(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Hilo (AsyncTask) detenido en: " + hiloAS.getResult(), Toast.LENGTH_SHORT).show();
                     }
                     hiloAS.cancel(true);
                     hiloAS = null;
                 } else {
-                    Toast.makeText(MainActivity.this, "No hay ningún hilo en ejecución", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "No hay ningún hilo (AsyncTask) en ejecución", Toast.LENGTH_SHORT).show();
                 }
             }
         });

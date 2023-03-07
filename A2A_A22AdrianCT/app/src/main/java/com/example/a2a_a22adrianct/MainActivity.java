@@ -4,6 +4,8 @@ import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
+import static androidx.core.content.FileProvider.getUriForFile;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -13,8 +15,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -55,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
         btnFoto = findViewById(R.id.btnFoto);
         iv = findViewById(R.id.iv);
 
-        musicPath = Environment.getExternalStorageDirectory() + "/UD-A2A/MUSICA/A22AdrianCT";
-        photoPath = Environment.getExternalStorageDirectory() + "/UD-A2A/FOTO/A22AdrianCT";
+        musicPath = Environment.getExternalStorageDirectory() + "/UD-A2A/MUSICA/A22AdrianCT/";
+        photoPath = Environment.getExternalStorageDirectory() + "/UD-A2A/FOTO/A22AdrianCT/";
         mediaPlayer = new MediaPlayer();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -65,10 +69,12 @@ public class MainActivity extends AppCompatActivity {
                 requestPermissions(new String[] {WRITE_EXTERNAL_STORAGE}, 1);
             } else {
                 copyAudioFromAssets();
+                setSpinnerAdapter();
             }
+        } else {
+            copyAudioFromAssets();
+            setSpinnerAdapter();
         }
-
-        setSpinnerAdapter();
 
         btnReproducir.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         recordAudio();
                     }
+                } else {
+                    recordAudio();
                 }
             }
         });
@@ -110,6 +118,8 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         takePhoto();
                     }
+                } else {
+                    takePhoto();
                 }
             }
         });
@@ -119,9 +129,19 @@ public class MainActivity extends AppCompatActivity {
         if ( mediaPlayer != null && mediaPlayer.isPlaying() ){
             mediaPlayer.stop();
         };
-        File photoFile = new File(photoPath);
-        if(!photoFile.exists()) photoFile.mkdirs();
+        File path = new File(photoPath);
+        if(!path.exists()) path.mkdirs();
+        File photoFile = new File(path +"/photo.jpg");
+
+        Uri contentUri = null;
+        if (Build.VERSION.SDK_INT >= 24) {
+            contentUri = getUriForFile(getApplicationContext(),getApplicationContext().getPackageName() + ".provider", photoFile);
+        } else {
+            contentUri= Uri.fromFile(photoFile);
+        }
+
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
         startActivityForResult(intent, 1);
     }
 
@@ -154,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 mediaRecorder.stop();
                 mediaRecorder.release();
-                Toast.makeText(MainActivity.this, "Grabación finalizada y guardada en: " + musicPath + "record" + (files.length-1) + ".3gp", Toast.LENGTH_SHORT).show();
                 mediaRecorder = null;
                 Toast.makeText(MainActivity.this, "Grabación finalizada y guardada en: " + musicPath + "record.3gp", Toast.LENGTH_SHORT).show();
                 setSpinnerAdapter();
@@ -226,6 +245,7 @@ public class MainActivity extends AppCompatActivity {
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
             if(requestCode == 1){
                 copyAudioFromAssets();
+                setSpinnerAdapter();
             }
 
             if(requestCode == 2){
@@ -244,22 +264,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        File photoFile = new File(photoPath + "/photo");
+        File photoFile = new File(photoPath + "/photo.jpg");
         if (resultCode == RESULT_OK) {
-            if (data == null) return;
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            Bitmap bitmap = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
             iv.setImageBitmap(bitmap);
-
-            try {
-                FileOutputStream out = new FileOutputStream(photoFile);
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-                out.flush();
-                out.close();
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
         }
     }
 }

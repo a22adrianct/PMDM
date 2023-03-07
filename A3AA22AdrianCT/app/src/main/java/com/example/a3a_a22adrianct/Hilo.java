@@ -1,13 +1,16 @@
 package com.example.a3a_a22adrianct;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.util.Log;
 import android.widget.Toast;
 
 public class Hilo extends Thread{
 
     int result;
-    public Hilo(){
+    Context context;
+    public Hilo(Context context){
+        this.context = context;
     }
 
     @Override
