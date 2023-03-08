@@ -11,7 +11,8 @@
         android:id="@+id/etRuta"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="https://manuais.iessanclemente.net/images/5/53/Salaries2.xml"/>
+        android:text="https://manuais.iessanclemente.net/images/5/53/Salaries2.xml"
+        android:layout_margin="10dp"/>
 
     <Button
         android:id="@+id/btnDescargar"
@@ -20,8 +21,23 @@
         android:text="Download"
         android:layout_margin="10dp"/>
 
+    <Button
+        android:id="@+id/btnProcesar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="XML Processing"
+        android:layout_margin="10dp"/>
+
+    <Button
+        android:id="@+id/btnMostrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Salaries"
+        android:layout_margin="10dp"/>
+
     <TextView
         android:id="@+id/tv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"/>
 </LinearLayout>
