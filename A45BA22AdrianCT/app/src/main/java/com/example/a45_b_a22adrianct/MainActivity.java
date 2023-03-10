@@ -3,6 +3,7 @@ package com.example.a45_b_a22adrianct;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -72,10 +73,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(salarios != null){
+
                     tv.setText("Total_Salary\t" + "Month\n");
 
-                    for(Salarios salario : listaSalarios){
-                        tv.append(salario.getTotal() + "\t" + "\t" + "\t" + "\t" + salario.getMes() + "\n");
+                    Cursor c = sqLite.rawQuery("SELECT * FROM salary", null);
+                    while(c.moveToNext()){
+                        Salarios salario = new Salarios(c.getString(0), c.getInt(1));
+                        tv.append(salario.getMes() + " - " + salario.getTotal() + "\n");
                     }
                 }
             }
@@ -84,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void processXML(String rutaFichero) throws XmlPullParserException, IOException {
         File file = new File(rutaFichero + "/fichero.xml");
-        listaSalarios = new ArrayList<>();
 
         try {
             FileInputStream fis = new FileInputStream(file);
@@ -116,29 +119,24 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         salarios = new Salarios(month, amount);
-                        listaSalarios.add(salarios);
+
+                        Cursor c = sqLite.rawQuery("SELECT * FROM salary WHERE TRIM(month) = '"+salarios.getMes().trim()+"'", null);
+
+                        ContentValues values = new ContentValues();
+
+                        if(!c.moveToFirst()){
+                            values.put("month", salarios.getMes());
+                            values.put("total_salary", salarios.getTotal());
+                            sqLite.insertOrThrow("salary", null, values);
+                        }
                     }
                 }
                 eventType = parser.next();
             }
             Toast.makeText(this, "Fichero procesado correctamente", Toast.LENGTH_SHORT).show();
-            insertarBD();
             fis.close();
         } catch (XmlPullParserException | IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    private void insertarBD(){
-        for(Salarios salario : listaSalarios){
-            try{
-                ContentValues values = new ContentValues();
-                values.put("month", salario.getMes());
-                values.put("total_salary", salario.getTotal());
-                sqLite.insertOrThrow("salary", null, values);
-            } catch (android.database.sqlite.SQLiteConstraintException e){
-                Log.e("DATABASE ERROR", "Duplicated month");
-            }
         }
     }
 }

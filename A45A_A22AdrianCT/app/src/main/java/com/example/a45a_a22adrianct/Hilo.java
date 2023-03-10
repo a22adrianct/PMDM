@@ -21,12 +21,6 @@ import java.net.URL;
 
 public class Hilo extends Thread{
 
-    TextView tv;
-
-    public Hilo(TextView tv){
-        this.tv = tv;
-    }
-
     @Override
     public void run(){
         String urlStr = "https://manuais.iessanclemente.net/images/2/20/Platega_pdm_rutas.xml";
@@ -65,51 +59,9 @@ public class Hilo extends Thread{
 
                 Log.i("Archivo descargado", "Descarga exitosa");
             }
-            processXML();
             con.disconnect();
         } catch (IOException e) {
             Log.e("Error en descarga", e.getMessage(), e);
-        } catch (XmlPullParserException e) {
-            throw new RuntimeException(e);
         }
-    }
-
-    private void processXML() throws XmlPullParserException, IOException {
-        File file = new File(Environment.getExternalStorageDirectory() + "/RUTAS/ficheiro.xml");
-
-        XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-        XmlPullParser parser = factory.newPullParser();
-
-        FileInputStream fis = null;
-        try{
-            fis = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            Log.e("XML", "Non se encontrou o arquivo");
-            return;
-        }
-
-        parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-        parser.setInput(fis, "UTF-8");
-
-        int eventType = parser.getEventType();
-        while (eventType != XmlPullParser.END_DOCUMENT) {
-            if (eventType == XmlPullParser.START_TAG && parser.getName().equals("ruta")) {
-                String nome = null;
-                String descripcion = null;
-                while (eventType != XmlPullParser.END_TAG || !parser.getName().equals("ruta")) {
-                    if (eventType == XmlPullParser.START_TAG && parser.getName().equals("nome")) {
-                        parser.next();
-                        nome = parser.getText();
-                    } else if (eventType == XmlPullParser.START_TAG && parser.getName().equals("descripcion")) {
-                        parser.next();
-                        descripcion = parser.getText();
-                    }
-                    eventType = parser.next();
-                }
-                tv.append(nome + " " + descripcion + "\n");
-            }
-            eventType = parser.next();
-        }
-        fis.close();
     }
 }
