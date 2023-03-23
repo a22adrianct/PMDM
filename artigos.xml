@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<articulos>
+  <articulo>
+    <id_articulo>10</id_articulo>
+    <marca>Adidas</marca>
+    <stock>10</stock>
+    <descripcion>Zapatillas deportivas para correr</descripcion>
+    <precio_compra>50.0</precio_compra>
+    <precio_venta>80.0</precio_venta>
+  </articulo>
+  <articulo>
+    <id_articulo>11</id_articulo>
+    <marca>Nike</marca>
+    <stock>15</stock>
+    <descripcion>Zapatillas deportivas para baloncesto</descripcion>
+    <precio_compra>70.0</precio_compra>
+    <precio_venta>120.0</precio_venta>
+  </articulo>
+  <articulo>
+    <id_articulo>12</id_articulo>
+    <marca>Apple</marca>
+    <stock>5</stock>
+    <descripcion>iPhone 12 Pro Max</descripcion>
+    <precio_compra>1000.0</precio_compra>
+    <precio_venta>1300.0</precio_venta>
+  </articulo>
+  <articulo>
+    <id_articulo>13</id_articulo>
+    <marca>Samsung</marca>
+    <stock>8</stock>
+    <descripcion>Smart TV 4K</descripcion>
+    <precio_compra>500.0</precio_compra>
+    <precio_venta>700.0</precio_venta>
+  </articulo>
+  <articulo>
+    <id_articulo>14</id_articulo>
+    <marca>Sony</marca>
+    <stock>20</stock>
+    <descripcion>Auriculares con cancelación de ruido</descripcion>
+    <precio_compra>100.0</precio_compra>
+    <precio_venta>150.0</precio_venta>
+  </articulo>
+</articulos>
