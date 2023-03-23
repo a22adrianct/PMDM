@@ -18,26 +18,26 @@
   </articulo>
   <articulo>
     <id_articulo>12</id_articulo>
-    <marca>Apple</marca>
+    <marca>Grimey</marca>
     <stock>5</stock>
-    <descripcion>iPhone 12 Pro Max</descripcion>
-    <precio_compra>1000.0</precio_compra>
-    <precio_venta>1300.0</precio_venta>
+    <descripcion>Sudadera HDLR negra</descripcion>
+    <precio_compra>42.0</precio_compra>
+    <precio_venta>85.0</precio_venta>
   </articulo>
   <articulo>
     <id_articulo>13</id_articulo>
-    <marca>Samsung</marca>
+    <marca>Jordan</marca>
     <stock>8</stock>
-    <descripcion>Smart TV 4K</descripcion>
-    <precio_compra>500.0</precio_compra>
-    <precio_venta>700.0</precio_venta>
+    <descripcion>Air Jordan 4</descripcion>
+    <precio_compra>140.0</precio_compra>
+    <precio_venta>250.0</precio_venta>
   </articulo>
   <articulo>
     <id_articulo>14</id_articulo>
-    <marca>Sony</marca>
+    <marca>Jordan</marca>
     <stock>20</stock>
-    <descripcion>Auriculares con cancelación de ruido</descripcion>
-    <precio_compra>100.0</precio_compra>
-    <precio_venta>150.0</precio_venta>
+    <descripcion>Air Jordan 1 Mid</descripcion>
+    <precio_compra>40.0</precio_compra>
+    <precio_venta>130.0</precio_venta>
   </articulo>
 </articulos>
